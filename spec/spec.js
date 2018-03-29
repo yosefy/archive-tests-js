@@ -6,24 +6,23 @@ let page;
 
 describe('Setup' , function () {
     beforeAll((async function () {
-        browser = await puppeteer.launch({headless: false});
+        browser = await puppeteer.launch({headless: true});
         page = await browser.newPage();
-        await page.goto('https://archive.kbb1.com');
-        await page.screenshot({path: 'example.png'});
+        await page.setViewport({width, height});
     }));
 
 
     describe('Jasmin Puppeteer', function () {
 
         it("Daily Lesson - Filter \"Topics\"", async function () {
-            page = await browser.newPage();
-            await page.setViewport({width, height});
 
-            await page.goto('https://archive.kbb1.com/lessons', {waitUntil: 'load'});
-            let header = await page.$('.section-header');
+            await page.goto('https://archive.kbb1.com/lessons');
+            let headerHandle = await page.$('.section-header');
 
-            console.log(header);
-            expect(header).not.toBe(null);
+            let headerClassName = await page.evaluate(header => header.className, headerHandle);
+
+            expect(headerClassName).toBe('section-header');
+
         });
 
     });

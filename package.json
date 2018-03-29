@@ -2,9 +2,10 @@
   "name": "archivebb-tests",
   "version": "0.0.1",
   "dependencies": {
-    "jasmine-node": "latest",
+    "jasmine": "latest",
     "puppeteer": "latest"
   },
-  "scripts":{"test": "node spec/spec.js"}
-
+  "scripts": {
+    "test": "node spec/spec.js"
+  }
 }
