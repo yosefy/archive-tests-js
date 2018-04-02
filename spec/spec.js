@@ -27,9 +27,8 @@ describe('Setup' , function () {
 
         it('Daily Lesson - Pagination', async function () {
             await page.goto(lessonsUrl);
-            let headerHandle = await page.$('.ui.blue.compact.pagination-menu.menu');
-            let paginationClassName = await page.evaluate(header => header.className, headerHandle);
-            expect(paginationClassName).toBe('ui blue compact pagination-menu menu');
+            expect(await page.$eval('.ui.blue.compact.pagination-menu.menu',
+                (selector) => {return selector.className})).toBe('ui blue compact pagination-menu menu');
 
         });
     });
