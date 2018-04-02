@@ -3,6 +3,7 @@ const width = 1920;
 const height = 1080;
 let browser;
 let page;
+const lessonsUrl = 'https://archive.kbb1.com/lessons'
 
 describe('Setup' , function () {
     beforeAll((async function () {
@@ -12,27 +13,20 @@ describe('Setup' , function () {
     }));
 
 
-    describe('Jasmin Puppeteer', function () {
+    describe('Archive Test Suite ', function () {
 
-        it("Daily Lesson - Filter \"Topics\"", async function () {
-
-            await page.goto('https://archive.kbb1.com/lessons');
-
-            let headerHandle = await page.$('.section-header');
-            let headerClassName = await page.evaluate(header => header.className, headerHandle);
-            expect(headerClassName).toBe('section-header');
-
-            headerHandle = await page.$('.section-header__title');
-            let headerText = await page.evaluate(header => header.innerHTML, headerHandle);
-            expect(headerText).toBe('Daily Lessons');
-            headerHandle.dispose()
-
+        it('Daily Lesson Section ', async function () {
+            await page.goto(lessonsUrl);
+            // header
+            expect(await page.$('.section-header')).toBeDefined();
+            // header title
+            expect(await page.$eval('.section-header__title',(selector) => {return selector.innerHTML})).toBe('Daily Lessons');
+            // filters
+            expect(await page.$$eval('.ui.container.padded.horizontally a', (selector) => {return selector.length})).toBe(3);
         });
 
-        fit("Daily Lesson - Pagination", async function () {
-
-            await page.goto('https://archive.kbb1.com/lessons');
-
+        it('Daily Lesson - Pagination', async function () {
+            await page.goto(lessonsUrl);
             let headerHandle = await page.$('.ui.blue.compact.pagination-menu.menu');
             let paginationClassName = await page.evaluate(header => header.className, headerHandle);
             expect(paginationClassName).toBe('ui blue compact pagination-menu menu');
