@@ -6,6 +6,9 @@
     "puppeteer": "latest"
   },
   "scripts": {
-    "test": "node spec/spec.js"
+    "jasmine": "node $NODE_DEBUG_OPTION ./node_modules/.bin/jasmine JASMINE_CONFIG_PATH=spec/support/jasmine.json",
+    "build": "npm run",
+    "pretest": "npm run build",
+    "test": "npm run jasmine"
   }
 }
