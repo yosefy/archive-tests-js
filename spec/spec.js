@@ -5,7 +5,7 @@ let browser;
 let page;
 let originalTimeout;
 const lessonsUrl = 'https://archive.kbb1.com/lessons';
-const lessonsPlayerUrl = 'https://archive.kbb1.com/lessons/cu/uyFMxrLN';
+const lessonsPlayerUrl = 'https://archive.kbb1.com/ua/lessons/cu/TGfvHRww?language=en';
 
 describe('Setup' , function () {
     beforeAll((async function () {
@@ -20,7 +20,7 @@ describe('Setup' , function () {
     describe('Archive Test Suite ', function () {
 
         it('Daily Lesson Section ', async function () {
-            await page.goto(lessonsUrl);
+            await page.goto(lessonsUrl, {waitUntil: 'domcontentloaded'});
             // header
             expect(await page.$('.section-header')).toBeDefined();
             // header title
@@ -32,13 +32,13 @@ describe('Setup' , function () {
         });
 
         it('Daily Lesson - Pagination', async function () {
-            await page.goto(lessonsUrl);
+            await page.goto(lessonsUrl, {waitUntil: 'domcontentloaded'});
             expect(await page.$eval('.ui.blue.compact.pagination-menu.menu',
                 (selector) => {return selector.className})).toBe('ui blue compact pagination-menu menu');
         });
 
         it('Daily Lesson - Player', async function () {
-            await page.goto(lessonsPlayerUrl);
+            await page.goto(lessonsPlayerUrl, {waitUntil: 'domcontentloaded'});
             expect(await page.$('.mediaplayer')).toBeDefined();
         });
     });
